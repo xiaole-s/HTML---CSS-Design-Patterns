@@ -1,0 +1,142 @@
+// table 等分
+@mixin table-equal($children: li) {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    $childrenEle: li div p a span strong;
+    @if index($childrenEle, $children) {
+        #{$children} {
+            display: table-cell;
+        }
+    }
+    @else {
+        .#{$children} {
+            display: table-cell;
+        }
+    }
+}
+
+.nav-links{
+    @include table-equal;
+}
+
+
+// display:flex
+%display-flex,%flex-display {
+    @include display-flex;
+}
+
+// flex 等分
+@mixin flex-equal($children: li) {
+    @extend %display-flex;
+    $childrenEle: li div p a span strong;
+    @if index($childrenEle, $children) {
+        #{$children} {
+            @include flex(1);
+        }
+    }
+    @else {
+        .#{$children} {
+            @include flex(1);
+        }
+    }
+}
+
+.nav-links{
+    @include flex-equal;
+}
+
+//水平垂直居中
+@mixin flex-center($direction: both) {
+    @extend %display-flex;
+    @if $direction == both {
+        @include justify-content(center);
+        @include align-items(center);
+    }
+    @else if $direction == x {
+        @include justify-content(center);
+    }
+    @else if $direction == y {
+        @include align-items(center);
+    }
+}
+
+.overlay{
+    z-index: 980;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.8);
+    @include flex-center; // overlay调用
+}
+.modal{
+    background-color: #fff;
+    border-radius: 5px;
+    margin: 0 10px;
+    overflow: hidden;
+
+    .modal-bd{
+        padding: 15px;
+    }
+}
+
+// translate 50%
+@mixin translate-center($direction: both) {
+    position: absolute;
+    @if $direction == both {
+        top: 50%;
+        left: 50%;
+        @include translate(-50%, -50%);
+    }
+    @else if $direction == x {
+        left: 50%;
+        @include translate(-50%, 0);
+    }
+    @else if $direction == y {
+        top: 50%;
+        @include translate(0, -50%);
+    }
+}
+
+.overlay{
+    z-index: 980;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.8);
+}
+.modal{
+    @include translate-center;  // modal调用
+    background-color: #fff;
+    border-radius: 5px;
+    width:300px;
+    overflow: hidden;
+
+    .modal-bd{
+        padding: 15px;
+    }
+}
+
+
+//左右两端对齐
+// justify
+@mixin justify($extend: true) {
+    @if $extend {
+        @extend %justify;
+    }
+    @else {
+        @extend %display-flex;
+        @include justify-content(space-between);
+    }
+}
+%justify {
+    @include justify(false);
+}
+
+.justify{
+    @include justify;
+}
