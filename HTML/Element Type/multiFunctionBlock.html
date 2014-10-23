@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="prd/index.css">
+    <title>多功能块级元素</title>
+</head>
+<body>
+    <!-- div{在这里包含text元素结构不正确但不出错}>(div{div块任意包含块级、行内}>h1+p)+div{多功能块可包含各种元素} -->
+    <!-- div块任意包含子元素text、块级、行内 -->
+    <div>多功能块
+        <div>多功能块可多包含
+            <h1></h1>
+            <p></p>
+        </div>
+    </div>
+    <!-- form -->
+    <form action="">
+        <div>这里面应用的就多了</div>
+    </form>
+    <script></script>
+</body>
+</html>
